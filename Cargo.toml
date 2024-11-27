@@ -3,4 +3,15 @@ name = "vanphubinh_backend"
 version = "0.1.0"
 edition = "2021"
 
+[workspace]
+members = ["server"]
+
+[workspace.dependencies]
+axum = "0.7.9"
+tokio = { version = "1.41.1", features = ["full"] }
+tower-http = "0.6.2"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter", "json"] }
+tracing = "0.1.40"
+
 [dependencies]
+server = { path = "./server" }

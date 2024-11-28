@@ -3,5 +3,13 @@ name = "def"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+name = "def"
+path = "src/lib.rs"
+
 [dependencies]
 sea-orm.workspace = true
+uuid.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+short-uuid.workspace = true

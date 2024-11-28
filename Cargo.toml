@@ -4,13 +4,13 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members = [ "def","server"]
+members = ["def", "server", "migration"]
 
 [workspace.dependencies]
 axum = "0.7.9"
 chrono = "0.4.38"
 dotenvy = "0.15.7"
-sea-orm = { version = "1.1.1", features = ["sqlx-postgres", "runtime-tokio-native-tls", "macros", "debug-print" ] }
+sea-orm = { version = "1.1.1", features = ["sqlx-postgres", "runtime-tokio-native-tls", "macros", "debug-print"] }
 serde = { version = "1.0.215", features = ["derive"] }
 serde_json = "1.0.133"
 short-uuid = "0.1.4"

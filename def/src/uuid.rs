@@ -3,7 +3,7 @@ use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use short_uuid::ShortUuid;
 use uuid::Uuid as OriginalUuid;
 
-#[derive(Debug, Clone, Serialize, Eq, PartialEq)]
+#[derive(Debug, Clone, Eq, PartialEq)]
 pub struct Uuid(OriginalUuid);
 
 impl<'de> Deserialize<'de> for Uuid {
@@ -15,6 +15,15 @@ impl<'de> Deserialize<'de> for Uuid {
         ShortUuid::parse_str(&s)
             .map(|short_uuid| Uuid(short_uuid.to_uuid()))
             .map_err(serde::de::Error::custom)
+    }
+}
+
+impl Serialize for Uuid {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        serializer.serialize_str(&ShortUuid::from_uuid(&self.0).to_string())
     }
 }
 
@@ -80,21 +89,4 @@ impl sea_orm::sea_query::ValueType for Uuid {
     fn column_type() -> sea_orm::sea_query::ColumnType {
         sea_orm::sea_query::ColumnType::Uuid
     }
-}
-
-pub fn as_short_uuid<T, S>(v: &T, serializer: S) -> Result<S::Ok, S::Error>
-where
-    T: AsRef<Uuid>,
-    S: Serializer,
-{
-    let uuid: OriginalUuid = v.as_ref().0.into();
-    serializer.serialize_str(&ShortUuid::from_uuid(&uuid).to_string())
-}
-
-pub fn from_short_uuid<'de, D>(deserializer: D) -> Result<Uuid, D::Error>
-where
-    D: Deserializer<'de>,
-{
-    let s = String::deserialize(deserializer)?;
-    Ok(Uuid(ShortUuid::parse_str(&s).unwrap().to_uuid()))
 }

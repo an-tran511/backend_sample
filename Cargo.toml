@@ -4,13 +4,18 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members = ["def", "server", "migration", "entity"]
+members = ["def", "server", "migration", "entity", "route", "service"]
 
 [workspace.dependencies]
 axum = "0.7.9"
 chrono = "0.4.38"
 dotenvy = "0.15.7"
-sea-orm = { version = "1.1.1", features = ["sqlx-postgres", "runtime-tokio-native-tls", "macros", "debug-print"] }
+sea-orm = { version = "1.1.1", features = [
+  "sqlx-postgres",
+  "runtime-tokio-native-tls",
+  "macros",
+  "debug-print",
+] }
 serde = { version = "1.0.215", features = ["derive"] }
 serde_json = "1.0.133"
 short-uuid = "0.1.4"
@@ -19,8 +24,11 @@ tower-http = { version = "0.6.2", features = ["full"] }
 tracing-subscriber = { version = "0.3.18", features = ["env-filter", "json"] }
 tracing = "0.1.40"
 thiserror = "2.0.3"
-uuid = { version = "1.11.0", features = ["v7", "fast-rng", "macro-diagnostics"] }
+uuid = { version = "1.11.0", features = [
+  "v7",
+  "fast-rng",
+  "macro-diagnostics",
+] }
 
 [dependencies]
 server = { path = "./server" }
-

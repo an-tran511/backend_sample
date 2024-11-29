@@ -1,5 +1,6 @@
 use axum::Router;
 use def::state::AppState;
+use route::uom_route;
 use sea_orm::{ConnectOptions, Database, DatabaseConnection};
 use std::{env, net::SocketAddr, sync::Arc};
 use tokio::net::TcpListener;
@@ -16,6 +17,8 @@ async fn connect_db() -> Result<DatabaseConnection, sea_orm::DbErr> {
 
 #[tokio::main]
 pub async fn start() {
+    dotenvy::dotenv().unwrap();
+
     tracing_subscriber::fmt()
         .with_max_level(tracing::Level::DEBUG)
         .with_test_writer()
@@ -34,13 +37,17 @@ pub async fn start() {
 
     let state = Arc::new(AppState { db });
 
-    let router = Router::new().with_state(state.clone()).layer(
-        TraceLayer::new_for_http().make_span_with(trace::DefaultMakeSpan::new().level(Level::INFO)),
-    );
+    let router = Router::new()
+        .nest("/api", Router::new().merge(uom_route::new()))
+        .with_state(state.clone())
+        .layer(
+            TraceLayer::new_for_http()
+                .make_span_with(trace::DefaultMakeSpan::new().level(Level::INFO)),
+        );
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
     let tcp = TcpListener::bind(&addr).await.unwrap();
 
-    tracing::debug!("Listening on {}", addr);
+    tracing::debug!("Listening on http://{}", addr);
     axum::serve(tcp, router).await.unwrap();
 }

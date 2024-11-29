@@ -5,7 +5,9 @@ edition = "2021"
 
 [dependencies]
 axum = { workspace = true }
+discern = { workspace = true }
 sea-orm = { workspace = true }
 
 def = { path = "../def" }
 service = { path = "../service" }
+query = { path = "../query" }

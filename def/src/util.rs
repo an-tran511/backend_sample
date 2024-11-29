@@ -12,12 +12,12 @@ pub struct PaginationMeta {
 
 #[derive(Debug, Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ListResourceResponse<T> {
+pub struct GetResponse<T> {
     pub data: Vec<T>,
     pub meta: PaginationMeta,
 }
 
-impl<T> IntoResponse for ListResourceResponse<T>
+impl<T> IntoResponse for GetResponse<T>
 where
     T: Serialize,
 {

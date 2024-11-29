@@ -1,15 +1,15 @@
 [package]
-name = "service"
+name = "query"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
 axum = { workspace = true }
+discern = { workspace = true }
 sea-orm = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
-uuid = { workspace = true }
+thiserror = { workspace = true }
 
 def = { path = "../def" }
 entity = { path = "../entity" }
-query = { path = "../query" }

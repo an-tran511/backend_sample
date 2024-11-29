@@ -774,11 +774,10 @@ name = "def"
 version = "0.1.0"
 dependencies = [
  "axum",
+ "discern",
  "sea-orm",
  "serde",
- "serde_json",
  "short-uuid",
- "thiserror 2.0.3",
  "uuid",
 ]
 
@@ -813,6 +812,15 @@ dependencies = [
  "const-oid",
  "crypto-common",
  "subtle",
+]
+
+[[package]]
+name = "discern"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f3d547a69c991a67f23ba0b2b4419b8e6c53ea06a0f035ff6df396e52d2c0d85"
+dependencies = [
+ "async-trait",
 ]
 
 [[package]]
@@ -2086,6 +2094,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "query"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "def",
+ "discern",
+ "entity",
+ "sea-orm",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.3",
+]
+
+[[package]]
 name = "quote"
 version = "1.0.37"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2227,6 +2249,8 @@ version = "0.1.0"
 dependencies = [
  "axum",
  "def",
+ "discern",
+ "query",
  "sea-orm",
  "service",
 ]
@@ -2561,7 +2585,9 @@ version = "0.1.0"
 dependencies = [
  "axum",
  "def",
+ "discern",
  "dotenvy",
+ "query",
  "route",
  "sea-orm",
  "tokio",
@@ -2577,6 +2603,7 @@ dependencies = [
  "axum",
  "def",
  "entity",
+ "query",
  "sea-orm",
  "serde",
  "serde_json",

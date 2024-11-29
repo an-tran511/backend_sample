@@ -1,5 +1,6 @@
 use axum::Router;
 use def::state::AppState;
+use query::create_query_bus;
 use route::uom_route;
 use sea_orm::{ConnectOptions, Database, DatabaseConnection};
 use std::{env, net::SocketAddr, sync::Arc};
@@ -27,7 +28,7 @@ pub async fn start() {
     let db = match connect_db().await {
         Ok(db) => {
             tracing::info!("Connected to database");
-            db
+            Arc::new(db)
         }
         Err(_) => {
             tracing::error!("Failed to connect to database");
@@ -35,7 +36,9 @@ pub async fn start() {
         }
     };
 
-    let state = Arc::new(AppState { db });
+    let query_bus = create_query_bus(db.clone());
+
+    let state = Arc::new(AppState { query_bus });
 
     let router = Router::new()
         .nest("/api", Router::new().merge(uom_route::new()))

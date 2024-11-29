@@ -1,6 +1,6 @@
-use sea_orm::DatabaseConnection;
+use discern::query::QueryBus;
 
 #[derive(Clone)]
 pub struct AppState {
-    pub db: DatabaseConnection,
+    pub query_bus: QueryBus,
 }

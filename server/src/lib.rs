@@ -1,4 +1,5 @@
 use axum::Router;
+use command::create_command_bus;
 use def::state::AppState;
 use query::create_query_bus;
 use route::uom_route;
@@ -37,8 +38,12 @@ pub async fn start() {
     };
 
     let query_bus = create_query_bus(db.clone());
+    let command_bus = create_command_bus(db.clone());
 
-    let state = Arc::new(AppState { query_bus });
+    let state = Arc::new(AppState {
+        query_bus,
+        command_bus,
+    });
 
     let router = Router::new()
         .nest("/api", Router::new().merge(uom_route::new()))

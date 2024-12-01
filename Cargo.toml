@@ -4,10 +4,20 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members = ["def", "server", "migration", "entity", "route", "service", "query"]
+members = [
+  "def",
+  "server",
+  "migration",
+  "entity",
+  "route",
+  "service",
+  "query",
+  "command",
+]
 
 [workspace.dependencies]
 axum = "0.7.9"
+axum-macros = "0.4.2"
 chrono = "0.4.38"
 discern = "0.1.0"
 dotenvy = "0.15.7"

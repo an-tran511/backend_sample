@@ -48,7 +48,7 @@ impl IntoResponse for ListUomsError {
 
 #[derive(Debug, Serialize)]
 pub struct ListUomsResponse {
-    pub uoms: Vec<UomDTO>,
+    pub data: Vec<UomDTO>,
     pub meta: PaginationMeta,
 }
 
@@ -77,7 +77,7 @@ impl QueryHandler<ListUomsQuery> for ListUomsQueryHandler {
         let total_pages = items_and_pages.number_of_pages;
 
         Ok(ListUomsResponse {
-            uoms,
+            data: uoms,
             meta: PaginationMeta {
                 page: page + 1,
                 total_pages,

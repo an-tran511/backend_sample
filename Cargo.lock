@@ -397,6 +397,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "axum-macros"
+version = "0.4.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "57d123550fa8d071b7255cb0cc04dc302baa6c8c4a79f55701552684d8399bce"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.89",
+]
+
+[[package]]
 name = "backtrace"
 version = "0.3.74"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -645,6 +656,19 @@ name = "colorchoice"
 version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5b63caa9aa9397e2d9480a9b13673856c78d8ac123288526c37d7839f2a86990"
+
+[[package]]
+name = "command"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "discern",
+ "entity",
+ "sea-orm",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.3",
+]
 
 [[package]]
 name = "concurrent-queue"
@@ -2584,6 +2608,7 @@ name = "server"
 version = "0.1.0"
 dependencies = [
  "axum",
+ "command",
  "def",
  "discern",
  "dotenvy",
@@ -2601,6 +2626,8 @@ name = "service"
 version = "0.1.0"
 dependencies = [
  "axum",
+ "axum-macros",
+ "command",
  "def",
  "entity",
  "query",
